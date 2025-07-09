@@ -11,17 +11,21 @@ const MEDIUM_TERM_DISCOUNT = 20;
 const LONG_TERM_DISCOUNT = 50;
 
 function calculateRentalCost(days) {
+  const calc = DAILY_RATE * days;
+
   if (days <= 0) {
     return 0;
   }
 
-  if (days < MEDIUM_TERM) {
-    return DAILY_RATE * days;
-  } else if (days < LONG_TERM && days >= MEDIUM_TERM) {
-    return DAILY_RATE * days - MEDIUM_TERM_DISCOUNT;
-  } else if (days >= LONG_TERM) {
-    return DAILY_RATE * days - LONG_TERM_DISCOUNT;
+  if (days >= LONG_TERM) {
+    return calc - LONG_TERM_DISCOUNT;
   }
+
+  if (days >= MEDIUM_TERM) {
+    return calc - MEDIUM_TERM_DISCOUNT;
+  }
+
+  return calc;
 }
 
 module.exports = calculateRentalCost;
